@@ -18,7 +18,7 @@ msgstr ""
 #: resources/lib/script.py
 msgctxt "#32000"
 msgid "Constructing Variables..."
-msgstr ""
+msgstr "بناء المتغيرات"
 
 #: resources/lib/script.py
 msgctxt "#32001"
@@ -94,3 +94,73 @@ msgstr "إعادة تعيين طرق العرض لـ{} ..."
 msgctxt "#32015"
 msgid "Do you wish to reset all {} views to default"
 msgstr "هل ترغب في إعادة تعيين كافة طرق العرض لـ{} إلى الوضع الافتراضي"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32016"
+msgid "Choose item to modify"
+msgstr "إختار اي عنصر للتعديل"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32017"
+msgid "Choose item to delete"
+msgstr "إختار عنصر للمسح"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32018"
+msgid "Successfully added\n[B]{}[/B]\nto\n[B]{}[/B]"
+msgid "تم بنجاح اضافة\n[B]{}[/B]\nto\n[B]{}[/B]"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32019"
+msgid "Import menu"
+msgstr "إستيراد قائمة"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32020"
+msgid "Added to menu"
+msgstr "تمت الأضافة للقائمة"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32021"
+msgid "Add to menu"
+msgstr "الإضافة إالى القائمة"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32022"
+msgid "No skinshortcuts found to import."
+msgstr "لا يوجد اي إختصار للمظهر يمكن إستيراده"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32023"
+msgid "Add as menu"
+msgstr "الإضافة كقائمة"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32024"
+msgid "Added as menu"
+msgstr " تمت الإضافة كقائمة"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32025"
+msgid "Successfully added\n[B]{}[/B]\nas\n[B]{}[/B]"
+msgid "تم بنجاح إضافة\n[B]{}[/B]\nas\n[B]{}[/B]"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32026"
+msgid "Overwrite menu"
+msgstr "الكتابة فوق القائمة"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32027"
+msgid "Importing will overwrite your current menus and setup. Are you sure?"
+msgstr "الإستيراد سيقوم بالكتابة فوق إعدادتك الحالية، هل أنت متأكد؟"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32028"
+msgid "Successfully imported\n[B]{}[/B]\nto\n[B]{}[/B]"
+msgid "تم بنجاح إستيراد\n[B]{}[/B]\nto\n[B]{}[/B]"
+
+#: /resources/lib/skinshortcuts.menu.py
+msgctxt "#32029"
+msgid "Choose item"
+msgstr "قم بإختيار عنصر"
