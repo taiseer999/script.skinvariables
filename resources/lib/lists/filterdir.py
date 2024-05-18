@@ -649,9 +649,6 @@ class ListGetFilterDir(Container):
             'video': DIRECTORY_PROPERTIES_VIDEO,
             'music': DIRECTORY_PROPERTIES_MUSIC}.get(library) or []
 
-        seed_paths = paths.copy()
-        seed_names = names.copy()
-
         def _make_item(i, path_name=None):
             if not i:
                 return
@@ -692,34 +689,34 @@ class ListGetFilterDir(Container):
             return (x, v)  # Sorted will sort by first value in tuple, then second order afterwards
 
         def _get_indexed_path(x=0):
-            paths = [seed_paths.pop(x)]
+            seed_paths = [paths.pop(x)]
             try:
-                names = [seed_names.pop(x)]
+                seed_names = [names.pop(x)]
             except (IndexError, TypeError):
-                names = None
-            return (paths, names)
+                seed_names = None
+            return (seed_paths, seed_names)
 
         def _get_random_path():
             import random
-            x = random.choice(range(len(seed_paths)))
+            x = random.choice(range(len(paths)))
             return _get_indexed_path(x)
 
         def _get_paths_names_tuple():
-            if not seed_paths or len(seed_paths) < 1:
+            if not paths or len(paths) < 1:
                 return (None, None)
             if boolean(randomise):
                 return _get_random_path()
             if boolean(fallback):
                 return _get_indexed_path(0)
-            return (seed_paths, seed_names)
+            return (paths, names)
 
         def _get_items_from_paths():
             items = []
-            paths, names = _get_paths_names_tuple()
+            seed_paths, seed_names = _get_paths_names_tuple()
 
-            for x, path in enumerate(paths):
+            for x, path in enumerate(seed_paths):
                 try:
-                    path_name = names[x]
+                    path_name = seed_names[x]
                 except (IndexError, TypeError):
                     path_name = ''
                 directory = get_directory(path, directory_properties)
@@ -727,7 +724,7 @@ class ListGetFilterDir(Container):
                     item_queue = pt.queue
                 items += [i for i in item_queue if i and (not no_label_dupes or _is_not_dupe(i))]
 
-            if not items and len(seed_paths) > 0:
+            if not items and len(paths) > 0:
                 if boolean(randomise) or boolean(fallback):
                     return _get_items_from_paths()
 
