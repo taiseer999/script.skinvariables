@@ -384,6 +384,13 @@ class MetaFilterDir():
             return
         self.meta['randomise'] = 'true'
 
+    def toggle_fallback(self):
+        from jurialmunkey.parser import boolean
+        if boolean(self.meta.get('fallback', False)):
+            del self.meta['fallback']
+            return
+        self.meta['fallback'] = 'true'
+
     def del_path(self, value):
         x = next(x for x, i in enumerate(self.meta['paths']) if i == value)
         del self.meta['paths'][x]
@@ -527,6 +534,7 @@ class ListSetFilterDir(Container):
             options = [a for j in (get_path_name_pair(x, i) for x, i in enumerate(meta_filter_dir.meta['paths'])) for a in j]
             options += [f'{k} = {v}' for k, v in meta_filter_dir.meta.items() if k not in ('paths', 'info', 'library', 'names')]
             options += ['randomise = false'] if 'randomise' not in meta_filter_dir.meta.keys() else []
+            options += ['fallback = false'] if 'fallback' not in meta_filter_dir.meta.keys() else []
             options += ['add sort'] if 'sort_by' not in meta_filter_dir.meta.keys() else []
             options += ['add filter', 'add exclude', 'add path', 'rename', 'delete', 'save']
 
@@ -578,6 +586,10 @@ class ListSetFilterDir(Container):
                 meta_filter_dir.toggle_randomise()
                 return do_edit()
 
+            if choice_k == 'fallback':
+                meta_filter_dir.toggle_fallback()
+                return do_edit()
+
             if choice_k == 'add path':
                 meta_filter_dir.add_new_path()
                 return do_edit()
@@ -620,7 +632,7 @@ class ListSetFilterDir(Container):
 
 
 class ListGetFilterDir(Container):
-    def get_directory(self, paths=None, library=None, no_label_dupes=False, dbtype=None, sort_by=None, sort_how=None, randomise=False, names=None, **kwargs):
+    def get_directory(self, paths=None, library=None, no_label_dupes=False, dbtype=None, sort_by=None, sort_how=None, randomise=False, fallback=False, names=None, **kwargs):
         if not paths:
             return
 
@@ -636,6 +648,9 @@ class ListGetFilterDir(Container):
         directory_properties += {
             'video': DIRECTORY_PROPERTIES_VIDEO,
             'music': DIRECTORY_PROPERTIES_MUSIC}.get(library) or []
+
+        seed_paths = paths.copy()
+        seed_names = names.copy()
 
         def _make_item(i, path_name=None):
             if not i:
@@ -676,28 +691,49 @@ class ListGetFilterDir(Container):
                 x = 0  # We want empty values to come last when sorting in descending order (reversed)
             return (x, v)  # Sorted will sort by first value in tuple, then second order afterwards
 
-        def _get_path_name(x):
+        def _get_indexed_path(x=0):
+            paths = [seed_paths.pop(x)]
             try:
-                return names[x]
-            except (IndexError, TypeError):
-                return ''
-
-        if boolean(randomise):
-            import random
-            x = random.choice(range(len(paths)))
-            paths = [paths[x]]
-            try:
-                names = [names[x]]
+                names = [seed_names.pop(x)]
             except (IndexError, TypeError):
                 names = None
+            return (paths, names)
 
-        items = []
-        for x, path in enumerate(paths):
-            path_name = _get_path_name(x)
-            directory = get_directory(path, directory_properties)
-            with ParallelThread(directory, _make_item, path_name) as pt:
-                item_queue = pt.queue
-            items += [i for i in item_queue if i and (not no_label_dupes or _is_not_dupe(i))]
+        def _get_random_path():
+            import random
+            x = random.choice(range(len(seed_paths)))
+            return _get_indexed_path(x)
+
+        def _get_paths_names_tuple():
+            if not seed_paths or len(seed_paths) < 1:
+                return (None, None)
+            if boolean(randomise):
+                return _get_random_path()
+            if boolean(fallback):
+                return _get_indexed_path(0)
+            return (seed_paths, seed_names)
+
+        def _get_items_from_paths():
+            items = []
+            paths, names = _get_paths_names_tuple()
+
+            for x, path in enumerate(paths):
+                try:
+                    path_name = names[x]
+                except (IndexError, TypeError):
+                    path_name = ''
+                directory = get_directory(path, directory_properties)
+                with ParallelThread(directory, _make_item, path_name) as pt:
+                    item_queue = pt.queue
+                items += [i for i in item_queue if i and (not no_label_dupes or _is_not_dupe(i))]
+
+            if not items and len(seed_paths) > 0:
+                if boolean(randomise) or boolean(fallback):
+                    return _get_items_from_paths()
+
+            return items
+
+        items = _get_items_from_paths()
 
         items = sorted(items, key=_get_sorting, reverse=sort_how == 'desc') if sort_by else items
         items = [(i.path, i.listitem, i.is_folder, ) for i in items if i]
