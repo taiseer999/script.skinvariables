@@ -190,6 +190,45 @@ def cache_meta_from_file(filepath, fileprop, refresh=False):
     return meta
 
 
+def get_menunode_lookup(lookup, skin, menu, item=None, node=None, mode=None, guid=None, **kwargs):
+    node_obj = ListGetShortcutsNode(None, None)
+    node_obj.refresh = True  # Refresh mem cache because we want to build from the file
+    node_obj.skin = skin
+    node_obj.menu = menu
+    node_obj.item = item
+    node_obj.node = node
+    node_obj.mode = mode
+    node_obj.guid = guid
+    node_obj.edit = False
+
+    if not node_obj.menunode:
+        return ''
+
+    key_filters = {k[7:]: v for k, v in kwargs.items() if k.startswith('filter_')}
+
+    def _is_filtered(i):
+        for k, v in key_filters.items():
+            if k not in i:
+                return
+            if i[k] != v:
+                return
+        return i
+
+    item = None
+
+    for x, i in enumerate(node_obj.menunode):
+        if not isinstance(i, dict):
+            i = {'value': i}
+        item = _is_filtered(i)
+        if item:
+            break
+
+    if not item:
+        return ''
+
+    return item.get(lookup) or ''
+
+
 class GetDirectoryItems():
     def __init__(self, grouping=GROUPING_DEFAULT, use_rawpath=False, folder_name=None):
         self.grouping = grouping
@@ -313,6 +352,41 @@ class NodeProperties():
         except AttributeError:
             self._nodename = get_nodename(self.node)
             return self._nodename
+
+    @property
+    def node(self):
+        return self._node
+
+    @node.setter
+    def node(self, value):
+        try:
+            self._node = tuple([int(i) for i in value.split('.') if i])
+        except (TypeError, AttributeError):
+            self._node = tuple()
+
+    @property
+    def mode(self):
+        try:
+            return self._mode or 'submenu'
+        except AttributeError:
+            self._mode = 'submenu'
+            return self._mode
+
+    @mode.setter
+    def mode(self, value):
+        self._mode = value
+
+    @property
+    def edit(self):
+        try:
+            return self._edit
+        except AttributeError:
+            self._edit = False
+            return self._edit
+
+    @edit.setter
+    def edit(self, value):
+        self._edit = boolean(value)
 
 
 class NodeSubmenuMethods():
@@ -809,19 +883,11 @@ class ListGetShortcutsNode(Container, NodeProperties, NodeMethods, NodeSubmenuMe
 
         self.menu = menu
         self.skin = skin
-        self.mode = mode or 'submenu'
+        self.mode = mode
         self.guid = guid
-        self.edit = boolean(edit)
-
-        try:
-            self.node = tuple([int(i) for i in node.split('.') if i])
-        except (TypeError, AttributeError):
-            self.node = tuple()
-
-        try:
-            self.item = item
-        except TypeError:
-            self.item = None
+        self.node = node
+        self.item = item
+        self.edit = edit
 
         if func == 'node':
             return self.menunode
