@@ -213,7 +213,7 @@ msgstr "Clasificar"
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32034"
 msgid "Enter custom [LOWERCASE]{}[/LOWERCASE] infolabel or property name"
-msgstr "Personalice [LOWERCASE]{}[/LOWERCASE] la información o nombre apropiado""
+msgstr "Personalice [LOWERCASE]{}[/LOWERCASE] la información o nombre apropiado"
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32035"

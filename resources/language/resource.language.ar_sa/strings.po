@@ -108,7 +108,7 @@ msgstr "قم باختيار عنصر للمسح"
 #: /resources/lib/skinshortcuts.menu.py
 msgctxt "#32018"
 msgid "Successfully added\n[B]{}[/B]\nto\n[B]{}[/B]"
-msgid "لقد تم بنجاح اضافة\n[B]{}[/B]\nto\n[B]{}[/B]"
+msgid "لقد تم بنجاح اضافة  \n[B]{}[/B]\nto\n[B]{}[/B]"
 
 #: /resources/lib/skinshortcuts.menu.py
 msgctxt "#32019"
