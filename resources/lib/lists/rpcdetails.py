@@ -66,6 +66,16 @@ class ListGetItemDetails(Container):
         artwork.setdefault('fanart', i.pop('fanart', ''))
         artwork.setdefault('thumb', i.pop('thumbnail', ''))
 
+        def _fmt_key_value(k, v):
+            if isinstance(v, float):
+                return (
+                    (f'{k}', f'{v}', ),
+                    (f'{k}_integer', f'{int(v)}'),
+                    (f'{k}_percentage', f'{v / 10:.0%}'),  # Ratings stored out of 10
+                    (f'{k}_rounded', f'{v:.1f}'),
+                )
+            return ((k, f'{v}', ), )
+
         def _iter_dict(d, prefix='', sub_lookups=False):
             ip = {}
             for k, v in d.items():
@@ -78,9 +88,11 @@ class ListGetItemDetails(Container):
                         if isinstance(j, dict):
                             ip.update(_iter_dict(j, prefix=f'{prefix}{k}.{x}.', sub_lookups=sub_lookups))
                             continue
-                        ip[f'{prefix}{k}.{x}'] = f'{j}'
+                        for key, value in _fmt_key_value(k, j):
+                            ip[f'{prefix}{key}.{x}'] = f'{value}'
                     continue
-                ip[f'{prefix}{k}'] = f'{v}'
+                for key, value in _fmt_key_value(k, v):
+                    ip[f'{prefix}{key}'] = f'{value}'
 
                 if not sub_lookups or k not in sub_lookups or k not in JSON_RPC_LOOKUPS:
                     continue
