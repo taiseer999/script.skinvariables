@@ -257,7 +257,7 @@ def run_dialog(run_dialog, separator=' / ', **kwargs):
             'params': (
                 ('heading', str, ''),
                 ('list', _split_items, ''),
-                ('autoclose', int, 0), ('preselect', _get_dialog_select_preselected_items, -1), ('useDetails', boolean, False), ),
+                ('autoclose', int, 0), ('preselect', _get_dialog_select_preselected_items, None), ('useDetails', boolean, False), ),
             'values': 'list'
         },
         'multiselect': {
