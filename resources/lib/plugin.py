@@ -82,8 +82,17 @@ class Plugin():
         from jurialmunkey.parser import parse_paramstring
         self.paramstring, *secondary_params = paramstring.split('&&')  # plugin://plugin.video.themoviedb.helper?paramstring
         self.params = parse_paramstring(self.paramstring)  # paramstring dictionary
+        self.decode_secondary_params(secondary_params)
+
+    def decode_secondary_params(self, secondary_params):
         if not secondary_params:
             return
+
+        from jurialmunkey.parser import boolean
+        if boolean(self.params.get('unencoded_paths', 'false')):
+            self.params['paths'] = secondary_params
+            return
+
         from urllib.parse import unquote_plus
         self.params['paths'] = [unquote_plus(i) for i in secondary_params]
 
