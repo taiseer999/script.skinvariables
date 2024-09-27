@@ -21,6 +21,8 @@ def join_conditions(org='', new='', operator=' | '):
 
 
 def _get_localized(text):
+    if not text:
+        return ''
     if text.startswith('$LOCALIZE'):
         text = text.strip('$LOCALIZE[]')
     if try_int(text):
