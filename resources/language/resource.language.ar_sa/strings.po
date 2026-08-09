@@ -108,7 +108,7 @@ msgstr "قم باختيار عنصر للمسح"
 #: /resources/lib/skinshortcuts.menu.py
 msgctxt "#32018"
 msgid "Successfully added\n[B]{}[/B]\nto\n[B]{}[/B]"
-msgid "لقد تم بنجاح اضافة\n[B]{}[/B]\nto\n[B]{}[/B]"
+msgstr "لقد تم بنجاح اضافة\n[B]{}[/B]\nto\n[B]{}[/B]"
 
 #: /resources/lib/skinshortcuts.menu.py
 msgctxt "#32019"
@@ -143,7 +143,7 @@ msgstr "اضيفت كقائمة"
 #: /resources/lib/skinshortcuts.menu.py
 msgctxt "#32025"
 msgid "Successfully added\n[B]{}[/B]\nas\n[B]{}[/B]"
-msgid "تم اضافة\n[B]{}[/B]\nas\n[B]{}[/B]"
+msgstr "تم اضافة\n[B]{}[/B]\nas\n[B]{}[/B]"
 
 #: /resources/lib/skinshortcuts.menu.py
 msgctxt "#32026"
@@ -158,7 +158,7 @@ msgstr "الاستيراد سيقوم باعدة الكتابة للاعدادت
 #: /resources/lib/skinshortcuts.menu.py
 msgctxt "#32028"
 msgid "Successfully imported\n[B]{}[/B]\nto\n[B]{}[/B]"
-msgid "تم بنجاح استيراد\n[B]{}[/B]\nto\n[B]{}[/B]"
+msgstr "تم بنجاح استيراد\n[B]{}[/B]\nto\n[B]{}[/B]"
 
 #: /resources/lib/skinshortcuts.menu.py
 msgctxt "#32029"
@@ -188,42 +188,42 @@ msgstr "تصنيف"
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32034"
 msgid "Enter custom [LOWERCASE]{}[/LOWERCASE] infolabel or property name"
-msgid "ادخل عنصر مخصص [LOWERCASE]{}[/LOWERCASE] تسمية تعريف "
+msgstr "ادخل عنصر مخصص [LOWERCASE]{}[/LOWERCASE] تسمية تعريف "
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32035"
 msgid "Enter custom [LOWERCASE]{}[/LOWERCASE] value to match"
-msgid "ادخل عنصر مخصص [LOWERCASE]{}[/LOWERCASE] قيمة متطابقة  "
+msgstr "ادخل عنصر مخصص [LOWERCASE]{}[/LOWERCASE] قيمة متطابقة  "
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32036"
 msgid "Less than <"
-msgid "أقل من <"
+msgstr "أقل من <"
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32037"
 msgid "Less than or equal <="
-msgid "اأقل من أو يساوي <="
+msgstr "اأقل من أو يساوي <="
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32038"
 msgid "Equal =="
-msgid "يساوي =="
+msgstr "يساوي =="
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32039"
 msgid "Not equal !="
-msgid "لا يساوي !="
+msgstr "لا يساوي !="
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32040"
 msgid "Greater than or equal >="
-msgid "أكبر من أو يساوي >="
+msgstr "أكبر من أو يساوي >="
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32041"
 msgid "Greater than >"
-msgid "أكبر من >"
+msgstr "أكبر من >"
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32042"
@@ -233,7 +233,7 @@ msgstr "مسح الميار"
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32043"
 msgid "[COLOR=red][B]WARNING[/B][/COLOR]: This action cannot be undone."
-msgid "[COLOR=red][B]WARNING[/B][/COLOR]: لا يمكن الإسترجاع بعد التنفيذ."
+msgstr "[COLOR=red][B]WARNING[/B][/COLOR]: لا يمكن الإسترجاع بعد التنفيذ."
 
 #: /resources/lib/lists/filterdir.py
 msgctxt "#32044"
